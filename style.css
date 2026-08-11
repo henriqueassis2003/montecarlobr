@@ -1,8 +1,8 @@
 :root {
     /* Paleta de cores inspirada na identidade IMPA / Festival da Matemática */
-    --cor-principal: #1E1B4B;      /* Azul índigo escuro */
-    --cor-secundaria: #4338CA;     /* Roxo/Azul vibrante */
-    --cor-destaque: #06B6D4;       /* Ciano educacional */
+    --cor-principal: #00A786;      /* Azul índigo escuro */
+    --cor-secundaria: #CDDE00;     /* Roxo/Azul vibrante */
+    --cor-destaque: #004A86;       /* Ciano educacional */
     --cor-fundo: #F8FAFC;          /* Cinza claro suave */
     --cor-card: #FFFFFF;           /* Branco dos cartões */
     --cor-texto: #0F172A;          /* Texto escuro principal */
