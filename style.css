@@ -10,10 +10,10 @@
     --cor-borda: #E2E8F0;          /* Bordas sutis */
     
     /* Cores dos pontos e visualização */
-    --cor-dentro: #059669;         /* Verde esmeralda para pontos internos */
-    --cor-fora: #DC2626;           /* Vermelho coral para pontos externos */
-    --cor-bbox: #F59E0B;           /* Amarelo/Laranja para a Bounding Box */
-    --cor-estado: #312E81;         /* Cor da linha do estado */
+    --cor-dentro: #DB3D7A;         /* Verde esmeralda para pontos internos */
+    --cor-fora: #7C5DA6;           /* Vermelho coral para pontos externos */
+    --cor-bbox: #F9D82A;           /* Amarelo/Laranja para a Bounding Box */
+    --cor-estado: #004A86;         /* Cor da linha do estado */
     --cor-estado-preenchimento: rgba(99, 102, 241, 0.08);
 
     --fonte-titulo: 'Fredoka', sans-serif;
