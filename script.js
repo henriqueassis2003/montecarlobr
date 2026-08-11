@@ -375,9 +375,9 @@ function startMonteCarloSimulation() {
     const pointsOutside = [];
 
     // Definição de tamanho de lote (batch) para manter animação suave
-    const batchSize = targetValidPoints >= 1000000 
-    ? 25000 
-    : (targetValidPoints >= 100000 ? 5000 : (targetValidPoints >= 10000 ? 500 : (targetValidPoints >= 1000 ? 50 : 10)));
+const batchSize = targetValidPoints >= 100000 
+    ? 5000 
+    : (targetValidPoints >= 10000 ? 500 : (targetValidPoints >= 1000 ? 50 : 10));
 
     function step() {
         let currentBatchValid = 0;
