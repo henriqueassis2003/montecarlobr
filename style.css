@@ -1,0 +1,401 @@
+:root {
+    /* Paleta de cores inspirada na identidade IMPA / Festival da Matemática */
+    --cor-principal: #1E1B4B;      /* Azul índigo escuro */
+    --cor-secundaria: #4338CA;     /* Roxo/Azul vibrante */
+    --cor-destaque: #06B6D4;       /* Ciano educacional */
+    --cor-fundo: #F8FAFC;          /* Cinza claro suave */
+    --cor-card: #FFFFFF;           /* Branco dos cartões */
+    --cor-texto: #0F172A;          /* Texto escuro principal */
+    --cor-texto-suave: #64748B;    /* Texto secundário */
+    --cor-borda: #E2E8F0;          /* Bordas sutis */
+    
+    /* Cores dos pontos e visualização */
+    --cor-dentro: #059669;         /* Verde esmeralda para pontos internos */
+    --cor-fora: #DC2626;           /* Vermelho coral para pontos externos */
+    --cor-bbox: #F59E0B;           /* Amarelo/Laranja para a Bounding Box */
+    --cor-estado: #312E81;         /* Cor da linha do estado */
+    --cor-estado-preenchimento: rgba(99, 102, 241, 0.08);
+
+    --fonte-titulo: 'Fredoka', sans-serif;
+    --fonte-corpo: 'Inter', sans-serif;
+    --sombra-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+    --raio-borda: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fonte-corpo);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Cabeçalho */
+.header {
+    background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
+    color: #FFFFFF;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(30, 27, 75, 0.15);
+}
+
+.header-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 50px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.header h1 {
+    font-family: var(--fonte-titulo);
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.header .subtitle {
+    font-size: 1.05rem;
+    color: #CBD5E1;
+    font-weight: 300;
+}
+
+/* Layout Principal */
+.main-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Cartões */
+.controls-card, .visualization-card, .metrics-card {
+    background-color: var(--cor-card);
+    border-radius: var(--raio-borda);
+    padding: 1.5rem;
+    box-shadow: var(--sombra-card);
+    border: 1px solid var(--cor-borda);
+}
+
+.controls-card h2, .metrics-card h3, .card-header h3 {
+    font-family: var(--fonte-titulo);
+    color: var(--cor-principal);
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+}
+
+/* Formulário e Controles */
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    align-items: end;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.control-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--cor-texto-suave);
+}
+
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--fonte-corpo);
+    font-size: 0.95rem;
+    border: 2px solid var(--cor-borda);
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    color: var(--cor-texto);
+    outline: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: var(--cor-secundaria);
+    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.15);
+}
+
+.button-group {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    font-family: var(--fonte-titulo);
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.btn-primary {
+    background-color: var(--cor-secundaria);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-principal);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #F1F5F9;
+    color: var(--cor-texto-suave);
+    border: 1px solid var(--cor-borda);
+}
+
+.btn-secondary:hover {
+    background-color: #E2E8F0;
+    color: var(--cor-texto);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Barra de Progresso */
+.progress-container {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.progress-bar-wrapper {
+    width: 100%;
+    height: 8px;
+    background-color: #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--cor-destaque), var(--cor-secundaria));
+    transition: width 0.1s linear;
+}
+
+.progress-text {
+    font-size: 0.85rem;
+    color: var(--cor-texto-suave);
+    text-align: right;
+}
+
+/* Grid da Área de Trabalho */
+.workspace-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Visualização */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.legend {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--cor-texto-suave);
+    font-weight: 500;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.color-box {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.box-inside { background-color: var(--cor-dentro); }
+.box-outside { background-color: var(--cor-fora); }
+.box-bbox { border: 2px stroke var(--cor-bbox); background-color: transparent; outline: 1px dashed var(--cor-bbox); }
+
+.canvas-wrapper {
+    width: 100%;
+    height: 520px;
+    background-color: #F1F5F9;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--cor-borda);
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Painel de Métricas */
+.metrics-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 0;
+    font-size: 0.92rem;
+}
+
+.metric-label {
+    color: var(--cor-texto-suave);
+    font-weight: 500;
+}
+
+.metric-value {
+    font-weight: 700;
+    color: var(--cor-texto);
+}
+
+.metric-warning {
+    color: #D97706;
+}
+
+.highlight-inside .metric-value {
+    color: var(--cor-dentro);
+}
+
+.highlight-outside .metric-value {
+    color: var(--cor-fora);
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--cor-borda);
+    margin: 0.5rem 0;
+}
+
+.result-main {
+    background-color: #EEF2FF;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin: 0.25rem 0;
+}
+
+.result-main .metric-label {
+    color: var(--cor-secundaria);
+    font-weight: 700;
+}
+
+.result-main .metric-value {
+    color: var(--cor-secundaria);
+    font-size: 1.1rem;
+}
+
+.result-error {
+    background-color: #FEF2F2;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin: 0.25rem 0;
+}
+
+.result-error .metric-label {
+    color: #B91C1C;
+    font-weight: 700;
+}
+
+.result-error .metric-value {
+    color: #B91C1C;
+    font-size: 1.1rem;
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--cor-texto-suave);
+    font-size: 0.85rem;
+    margin-top: auto;
+    border-top: 1px solid var(--cor-borda);
+    background-color: #FFFFFF;
+}
+
+/* Responsividade para Tablets e Celulares */
+@media (max-width: 992px) {
+    .workspace-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .canvas-wrapper {
+        height: 420px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header h1 {
+        font-size: 1.65rem;
+    }
+
+    .controls-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .canvas-wrapper {
+        height: 320px;
+    }
+}
