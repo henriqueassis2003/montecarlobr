@@ -334,7 +334,7 @@ function redrawScene(pointsInside = [], pointsOutside = []) {
     const pointRadius = pointsInside.length + pointsOutside.length > 2000 ? 1.5 : 2.5;
 
     // Pontos Dentro (Verde)
-    ctx.fillStyle = '#059669';
+    ctx.fillStyle = '#DB3D7A';
     for (const pt of pointsInside) {
         const cp = geoToCanvas(pt.lon, pt.lat, bbox, width, height, padding);
         ctx.beginPath();
@@ -343,7 +343,7 @@ function redrawScene(pointsInside = [], pointsOutside = []) {
     }
 
     // Pontos Fora (Vermelho)
-    ctx.fillStyle = '#DC2626';
+    ctx.fillStyle = '#7C5DA6';
     for (const pt of pointsOutside) {
         const cp = geoToCanvas(pt.lon, pt.lat, bbox, width, height, padding);
         ctx.beginPath();
