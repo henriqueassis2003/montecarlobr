@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculando área de estados com Monte Carlo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <span class="badge">Matemática Interativa</span>
+            <h1>Calculando área de estados com Monte Carlo</h1>
+            <p class="subtitle">Estimativa numérica de superfícies geográficas via amostragem esférica aleatória</p>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Painel de Controles -->
+        <section class="controls-card">
+            <h2>Configuração da Simulação</h2>
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="stateSelect">Estado (UF):</label>
+                    <select id="stateSelect">
+                        <option value="AC">AC - Acre</option>
+                        <option value="AL">AL - Alagoas</option>
+                        <option value="AP">AP - Amapá</option>
+                        <option value="AM">AM - Amazonas</option>
+                        <option value="BA">BA - Bahia</option>
+                        <option value="CE">CE - Ceará</option>
+                        <option value="DF">DF - Distrito Federal</option>
+                        <option value="ES">ES - Espírito Santo</option>
+                        <option value="GO">GO - Goiás</option>
+                        <option value="MA">MA - Maranhão</option>
+                        <option value="MT">MT - Mato Grosso</option>
+                        <option value="MS">MS - Mato Grosso do Sul</option>
+                        <option value="MG">MG - Minas Gerais</option>
+                        <option value="PA">PA - Pará</option>
+                        <option value="PB">PB - Paraíba</option>
+                        <option value="PR">PR - Paraná</option>
+                        <option value="PE">PE - Pernambuco</option>
+                        <option value="PI">PI - Piauí</option>
+                        <option value="RJ" selected>RJ - Rio de Janeiro</option>
+                        <option value="RN">RN - Rio Grande do Norte</option>
+                        <option value="RS">RS - Rio Grande do Sul</option>
+                        <option value="RO">RO - Rondônia</option>
+                        <option value="RR">RR - Roraima</option>
+                        <option value="SC">SC - Santa Catarina</option>
+                        <option value="SP">SP - São Paulo</option>
+                        <option value="SE">SE - Sergipe</option>
+                        <option value="TO">TO - Tocantins</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="pointsSelect">Pontos válidos:</label>
+                    <select id="pointsSelect">
+                        <option value="100">100</option>
+                        <option value="1000" selected>1.000</option>
+                        <option value="10000">10.000</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button id="btnCalculate" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        Calcular área
+                    </button>
+                    <button id="btnClear" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        Limpar
+                    </button>
+                </div>
+            </div>
+
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <span class="progress-text" id="progressText">Aguardando início...</span>
+            </div>
+        </section>
+
+        <!-- Área Principal de Visualização e Métricas -->
+        <div class="workspace-grid">
+            <!-- Canvas Visualizador -->
+            <section class="visualization-card">
+                <div class="card-header">
+                    <h3>Visualização Cartográfica</h3>
+                    <div class="legend">
+                        <span class="legend-item"><span class="color-box box-inside"></span> Dentro</span>
+                        <span class="legend-item"><span class="color-box box-outside"></span> Fora</span>
+                        <span class="legend-item"><span class="color-box box-bbox"></span> Bounding Box</span>
+                    </div>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="mapCanvas"></canvas>
+                </div>
+            </section>
+
+            <!-- Painel de Métricas -->
+            <section class="metrics-card">
+                <h3>Métricas do Cálculo</h3>
+                
+                <div class="metric-row">
+                    <span class="metric-label">Estado selecionado:</span>
+                    <span class="metric-value" id="metricState">RJ</span>
+                </div>
+
+                <div class="metric-row">
+                    <span class="metric-label">Pontos válidos solicitados:</span>
+                    <span class="metric-value" id="metricTargetPoints">0</span>
+                </div>
+
+                <div class="metric-row">
+                    <span class="metric-label">Pontos descartados (degenerados):</span>
+                    <span class="metric-value metric-warning" id="metricDiscardedPoints">0</span>
+                </div>
+
+                <div class="metric-row highlight-inside">
+                    <span class="metric-label">Pontos DENTRO do estado:</span>
+                    <span class="metric-value" id="metricPointsInside">0</span>
+                </div>
+
+                <div class="metric-row highlight-outside">
+                    <span class="metric-label">Pontos FORA do estado:</span>
+                    <span class="metric-value" id="metricPointsOutside">0</span>
+                </div>
+
+                <hr class="divider">
+
+                <div class="metric-row">
+                    <span class="metric-label">Área da Bounding Box:</span>
+                    <span class="metric-value" id="metricBboxArea">0 km²</span>
+                </div>
+
+                <div class="metric-row result-main">
+                    <span class="metric-label">Área Calculada (Monte Carlo):</span>
+                    <span class="metric-value" id="metricCalculatedArea">0 km²</span>
+                </div>
+
+                <div class="metric-row">
+                    <span class="metric-label">Área Real (IBGE):</span>
+                    <span class="metric-value" id="metricRealArea">0 km²</span>
+                </div>
+
+                <hr class="divider">
+
+                <div class="metric-row">
+                    <span class="metric-label">Erro Absoluto:</span>
+                    <span class="metric-value" id="metricAbsError">0 km²</span>
+                </div>
+
+                <div class="metric-row result-error">
+                    <span class="metric-label">Erro Relativo:</span>
+                    <span class="metric-value" id="metricRelError">0.00 %</span>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Desenvolvido para demonstrações interativas de métodos numéricos e computação geográfica.</p>
+        <p><small>Dados de área: IBGE | Formato dos mapas: GeoJSON</small></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
