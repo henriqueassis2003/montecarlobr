@@ -433,7 +433,7 @@ const batchSize = targetValidPoints >= 100000
             btnCalculate.disabled = false;
             stateSelect.disabled = false;
             pointsSelect.disabled = false;
-            progressText.textContent = `Simulação concluída! ${discardedCount} pontos degenerados foram descartados.`;
+            progressText.textContent = `Simulação concluída!`;
         }
     }
 
