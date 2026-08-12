@@ -114,6 +114,21 @@
                 </div>
 
                 <div class="metric-row">
+                    <span class="metric-label">Área da Bounding Box:</span>
+                    <span class="metric-value" id="metricBboxArea">0 km²</span>
+                </div>
+
+                <div class="metric-row result-main">
+                    <span class="metric-label">Área Calculada (Monte Carlo):</span>
+                    <span class="metric-value" id="metricCalculatedArea">0 km²</span>
+                </div>
+
+                <div class="metric-row">
+                    <span class="metric-label">Área Real (IBGE):</span>
+                    <span class="metric-value" id="metricRealArea">0 km²</span>
+                </div>
+
+                <div class="metric-row">
                     <span class="metric-label">Pontos válidos solicitados:</span>
                     <span class="metric-value" id="metricTargetPoints">0</span>
                 </div>
@@ -135,20 +150,7 @@
 
                 <hr class="divider">
 
-                <div class="metric-row">
-                    <span class="metric-label">Área da Bounding Box:</span>
-                    <span class="metric-value" id="metricBboxArea">0 km²</span>
-                </div>
-
-                <div class="metric-row result-main">
-                    <span class="metric-label">Área Calculada (Monte Carlo):</span>
-                    <span class="metric-value" id="metricCalculatedArea">0 km²</span>
-                </div>
-
-                <div class="metric-row">
-                    <span class="metric-label">Área Real (IBGE):</span>
-                    <span class="metric-value" id="metricRealArea">0 km²</span>
-                </div>
+                
 
                 <hr class="divider">
 
@@ -168,7 +170,7 @@
     <footer class="footer">
         <p>Desenvolvido para demonstrações interativas de métodos numéricos e uso no FESTMAT</p>
         <p><small>Dados de área: IBGE | Formato dos mapas: GeoJSON</small></p>
-        <p><small>Contém uso de IA|IA utilizadas: ChatGPT(OpenAI)+Gemini(Google)</small></p>
+        <p><small>Contém uso de IA | IA utilizadas: ChatGPT(OpenAI)+Gemini(Google)</small></p>
     </footer>
 
     <script src="script.js"></script>
